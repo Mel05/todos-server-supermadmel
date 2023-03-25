@@ -1,3 +1,3 @@
-# Node.js Express mongoose 
+# Node.js, Express, mongoose 
 
 Backend for Todo list todos-server-supermadmel
