@@ -54,6 +54,38 @@ app.put(
 )
 app.delete('/todo/:id', checkAuth, TodoController.remove)
 
+// Костыль для пробуждения onrender-а
+
+let failCounter = 0
+let successCounter = 0
+
+app.get('/onrender/', (req, res) => {
+	res.send('Hello Onrender')
+})
+
+setInterval(() => {
+	fetch('https://todos-server-supermadmel.onrender.com/onrender')
+		// fetch('http://localhost:3011/onrender')
+		.then(response => {
+			if (response.ok) {
+				successCounter++
+				console.log('Piu piU OGC success', successCounter)
+			} else {
+				failCounter++
+				console.log('Piu piU failed', failCounter)
+			}
+		})
+		.catch(error => {
+			console.error('Error while pinging server:', error)
+		})
+}, 240000)
+
+setInterval(() => {
+	console.log('OGC working TUTAVA')
+}, 4 * 60 * 1000)
+
+///////////
+
 app.listen(process.env.PORT || 8080, err => {
 	if (err) {
 		return console.log(err)
