@@ -77,11 +77,9 @@ setInterval(() => {
 		.catch(error => {
 			console.error('Error while pinging server:', error)
 		})
-}, 170000)
 
-setInterval(() => {
 	console.log('OGC working TUTAVA')
-}, (2 * 60 + 50) * 1000)
+}, 170000)
 
 ///////////
 
