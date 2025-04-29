@@ -65,7 +65,6 @@ app.get('/onrender/', (req, res) => {
 
 setInterval(() => {
 	fetch('https://todos-server-supermadmel.onrender.com/onrender')
-		// fetch('http://localhost:3011/onrender')
 		.then(response => {
 			if (response.ok) {
 				successCounter++
@@ -78,11 +77,11 @@ setInterval(() => {
 		.catch(error => {
 			console.error('Error while pinging server:', error)
 		})
-}, 240000)
+}, 170000)
 
 setInterval(() => {
 	console.log('OGC working TUTAVA')
-}, 4 * 60 * 1000)
+}, (2 * 60 + 50) * 1000)
 
 ///////////
 
