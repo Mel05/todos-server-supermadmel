@@ -12,6 +12,10 @@ import {
 import { handleValidationErrors, checkAuth } from './utils/index.js'
 
 import { UserController, TodoController } from './controllers/index.js'
+
+/// Костыль для onrender
+import { OnrenderController } from './controllers/index.js'
+
 //
 mongoose
 	.connect(process.env.MONGODB_URI)
@@ -56,32 +60,9 @@ app.delete('/todo/:id', checkAuth, TodoController.remove)
 
 // Костыль для пробуждения onrender-а
 
-let failCounter = 0
-let successCounter = 0
+app.get('/onrender', OnrenderController.getCounter)
 
-app.get('/onrender/', (req, res) => {
-	res.send('Hello Onrender')
-})
-
-setInterval(() => {
-	fetch('https://todos-server-supermadmel.onrender.com/onrender')
-		.then(response => {
-			if (response.ok) {
-				successCounter++
-				console.log('Piu piU OGC success', successCounter)
-			} else {
-				failCounter++
-				console.log('Piu piU failed', failCounter)
-			}
-		})
-		.catch(error => {
-			console.error('Error while pinging server:', error)
-		})
-
-	console.log('OGC working TUTAVA')
-}, 170000)
-
-///////////
+///
 
 app.listen(process.env.PORT || 8080, err => {
 	if (err) {
