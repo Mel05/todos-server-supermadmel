@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import chalk from 'chalk'
+import 'dotenv/config'
 
 import {
 	registerValidation,
@@ -16,7 +17,8 @@ import { UserController, TodoController } from './controllers/index.js'
 /// Костыль для onrender
 import { OnrenderController } from './controllers/index.js'
 
-//
+mongoose.set('strictQuery', true)
+
 mongoose
 	.connect(process.env.MONGODB_URI)
 	.then(() => console.log(chalk.yellow('BD works unlike me')))
@@ -38,6 +40,8 @@ app.post(
 )
 
 app.get('/auth/me', checkAuth, UserController.getMe)
+
+app.get('/auth/all', UserController.getAll)
 
 //Todo
 app.get('/todosId', checkAuth, TodoController.getTodosByUserId)
@@ -68,7 +72,8 @@ app.listen(process.env.PORT || 8080, err => {
 	if (err) {
 		return console.log(err)
 	}
+	const PORT = process.env.PORT || 8080
 
 	console.log(chalk.rgb(255, 136, 0)('-----------'))
-	console.log(chalk.rgb(255, 136, 0)('Server OK'))
+	console.log(chalk.rgb(255, 136, 0)(`Server OK on ${PORT}`))
 })
